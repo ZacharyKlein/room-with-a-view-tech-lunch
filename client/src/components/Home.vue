@@ -2,15 +2,15 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
 
-    <book-create-form :authors="authors" :addBook="addBook"  />
+    <book-create-form :authors="authors" />
     <br/><hr/>
-    <book-list :books="books" :removeBook="removeBook"  />
+    <book-list :books="books" />
 
     <br/><hr/>
-    <author-create-form :addAuthor="addAuthor" />
+    <author-create-form />
 
     <br/><hr/>
-    <author-list :authors="authors" :removeAuthor="removeAuthor" />
+    <author-list :authors="authors" />
 
   </div>
 </template>
@@ -20,9 +20,7 @@ import BookList from '@/components/book/BookList'
 import BookCreateForm from '@/components/book/BookCreateForm'
 import AuthorList from '@/components/author/AuthorList'
 import AuthorCreateForm from '@/components/author/AuthorCreateForm'
-import { mapMutations } from 'vuex'
-
-const headers = { 'Content-Type': 'application/json' }
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   data () {
@@ -41,63 +39,20 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'loadAuthors',
+      'loadBooks'
+    ]),
     ...mapMutations([
       'addBookStore',
       'addAuthorStore',
       'removeBookStore',
       'removeAuthorStore'
-    ]),
-    addBook: function (book) {
-      fetch(`http://localhost:8080/book/`,
-        { method: 'POST',
-          headers,
-          body: JSON.stringify(book)})
-        .then(r => {
-          if (r.status === 201) return r.json()
-          else throw Error('Could not save book')
-        })
-        .then(book => this.addBookStore({book}))
-        .catch(e => console.error(e))
-    },
-    addAuthor: function (author) {
-      fetch(`http://localhost:8080/author/`,
-        { method: 'POST',
-          headers,
-          body: JSON.stringify(author)})
-        .then(r => {
-          if (r.status === 201) return r.json()
-          else throw Error('Could not save author')
-        })
-        .then(author => this.addAuthorStore({author}))
-        .catch(e => console.error(e))
-    },
-    removeBook: function (id) {
-      fetch(`http://localhost:8080/book/${id}`, {method: 'delete'})
-        .then(r => {
-          if (r.status === 204) this.removeBookStore({id})
-        })
-    },
-    removeAuthor: function (id) {
-      fetch(`http://localhost:8080/author/${id}`, {method: 'delete'})
-        .then(r => {
-          if (r.status === 204) this.removeAuthorStore({id})
-        })
-    }
+    ])
   },
   created: function () {
-    fetch(`http://localhost:8080/book`)
-      .then(r => r.json())
-      .then(json => {
-        this.books = json
-      })
-      .catch(e => console.warn(e))
-
-    fetch(`http://localhost:8080/author`)
-      .then(r => r.json())
-      .then(json => {
-        this.authors = json
-      })
-      .catch(e => console.warn(e))
+    this.loadAuthors()
+    this.loadBooks()
   },
   components: {
     'book-list': BookList,

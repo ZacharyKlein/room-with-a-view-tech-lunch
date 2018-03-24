@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
   props: ['addAuthor'],
   data () {
@@ -22,8 +24,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'saveAuthor'
+    ]),
     submitNewAuthor: function () {
-      this.addAuthor(this.author)
+      this.saveAuthor({author: this.author})
       this.author = {name: ''}
       this.$refs.authorName.focus()
     }

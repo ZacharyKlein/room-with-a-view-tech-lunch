@@ -4,7 +4,7 @@
        @mouseleave="hover = false">
     <td class="name">{{author.name}}</td>
     <td class="books">{{author.books}}</td>
-    <td><button @click="removeAuthor(author.id)">X</button></td>
+    <td><button @click="deleteAuthor({id: author.id})">X</button></td>
   </tr>
 </template>
 
@@ -15,7 +15,7 @@ export default {
       hover: false
     }
   },
-  props: ['author', 'removeAuthor']
+  props: ['author', 'deleteAuthor']
 }
 </script>
 

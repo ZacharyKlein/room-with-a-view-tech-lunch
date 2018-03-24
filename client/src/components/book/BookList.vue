@@ -7,16 +7,22 @@
       <td></td>
     </thead>
     <tbody>
-    <book :book="book" :removeBook="removeBook" :key="book.id" v-for="book in books" />
+    <book :book="book" :deleteBook="deleteBook" :key="book.id" v-for="book in books" />
     </tbody>
   </table>
 </template>
 <script>
 import Book from './Book.vue'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'book-list',
-  props: ['books', 'removeBook'],
+  props: ['books'],
+  methods: {
+    ...mapActions([
+      'deleteBook'
+    ])
+  },
   components: {
     book: Book
   }

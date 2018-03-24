@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'BookCreateForm',
   props: ['addBook', 'authors'],
@@ -36,8 +38,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'saveBook'
+    ]),
     submitNewBook: function () {
-      this.addBook(this.book)
+      this.saveBook({book: this.book})
       this.book = {title: '', pages: null, author: {}}
       this.$refs.bookTitle.focus()
     }

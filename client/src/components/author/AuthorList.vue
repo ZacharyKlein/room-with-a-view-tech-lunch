@@ -6,16 +6,22 @@
     <td></td>
     </thead>
     <tbody>
-    <author v-for="author in authors" v-bind="{author, removeAuthor}" :key="author.id" />
+    <author v-for="author in authors" v-bind="{author, deleteAuthor}" :key="author.id" />
     </tbody>
   </table>
 </template>
 <script>
 import Author from './Author.vue'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'author-list',
-  props: ['authors', 'removeAuthor'],
+  props: ['authors'],
+  methods: {
+    ...mapActions([
+      'deleteAuthor'
+    ])
+  },
   components: {'author': Author}
 }
 </script>
