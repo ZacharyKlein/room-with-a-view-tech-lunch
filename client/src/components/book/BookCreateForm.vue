@@ -27,7 +27,6 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'BookCreateForm',
-  props: ['addBook', 'authors'],
   data () {
     return {
       book: {
@@ -35,6 +34,12 @@ export default {
         pages: null,
         author: null
       }
+    }
+  },
+  computed: {
+    authors: {
+      get () { return this.$store.state.authors },
+      set (authors) { this.$store.commit('setAuthors', {authors}) }
     }
   },
   methods: {

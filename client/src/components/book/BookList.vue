@@ -17,11 +17,16 @@ import {mapActions} from 'vuex'
 
 export default {
   name: 'book-list',
-  props: ['books'],
   methods: {
     ...mapActions([
       'deleteBook'
     ])
+  },
+  computed: {
+    books: {
+      get () { return this.$store.state.books },
+      set (books) { this.$store.commit('setBooks', {books}) }
+    }
   },
   components: {
     book: Book

@@ -2,15 +2,15 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
 
-    <book-create-form :authors="authors" />
+    <book-create-form />
     <br/><hr/>
-    <book-list :books="books" />
+    <book-list  />
 
     <br/><hr/>
     <author-create-form />
 
     <br/><hr/>
-    <author-list :authors="authors" />
+    <author-list  />
 
   </div>
 </template>
@@ -20,7 +20,7 @@ import BookList from '@/components/book/BookList'
 import BookCreateForm from '@/components/book/BookCreateForm'
 import AuthorList from '@/components/author/AuthorList'
 import AuthorCreateForm from '@/components/author/AuthorCreateForm'
-import { mapMutations, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   data () {
@@ -28,26 +28,10 @@ export default {
       msg: 'Welcome to the Library'
     }
   },
-  computed: {
-    books: {
-      get () { return this.$store.state.books },
-      set (books) { this.$store.commit('setBooks', {books}) }
-    },
-    authors: {
-      get () { return this.$store.state.authors },
-      set (authors) { this.$store.commit('setAuthors', {authors}) }
-    }
-  },
   methods: {
     ...mapActions([
       'loadAuthors',
       'loadBooks'
-    ]),
-    ...mapMutations([
-      'addBookStore',
-      'addAuthorStore',
-      'removeBookStore',
-      'removeAuthorStore'
     ])
   },
   created: function () {

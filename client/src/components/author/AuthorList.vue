@@ -16,11 +16,16 @@ import {mapActions} from 'vuex'
 
 export default {
   name: 'author-list',
-  props: ['authors'],
   methods: {
     ...mapActions([
       'deleteAuthor'
     ])
+  },
+  computed: {
+    authors: {
+      get () { return this.$store.state.authors },
+      set (authors) { this.$store.commit('setAuthors', {authors}) }
+    }
   },
   components: {'author': Author}
 }

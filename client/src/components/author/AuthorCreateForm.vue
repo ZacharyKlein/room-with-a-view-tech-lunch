@@ -15,7 +15,6 @@
 import {mapActions} from 'vuex'
 
 export default {
-  props: ['addAuthor'],
   data () {
     return {
       author: {
