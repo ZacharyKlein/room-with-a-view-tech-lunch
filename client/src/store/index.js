@@ -9,24 +9,24 @@ const store = new Vuex.Store({
     books: []
   },
   mutations: {
-    addBookStore (state, payload) {
-      state.books.push(payload.book)
+    addBookStore (state, {book}) {
+      state.books.push(book)
     },
-    addAuthorStore (state, payload) {
-      state.authors.push(payload.author)
+    addAuthorStore (state, {author}) {
+      state.authors.push(author)
     },
-    removeBookStore (state, payload) {
-      state.books = state.books.filter(b => b.id !== payload.id)
+    removeBookStore (state, {id}) {
+      state.books = state.books.filter(b => b.id !== id)
     },
-    removeAuthorStore (state, payload) {
-      state.authors = state.authors.filter(a => a.id === payload.id)
-      state.books = state.books.filter(b => b.author.id !== payload.id)
+    removeAuthorStore (state, {id}) {
+      state.authors = state.authors.filter(a => a.id === id)
+      state.books = state.books.filter(b => b.author.id !== id)
     },
-    setBooks (state, payload) {
-      state.books = payload.books
+    setBooks (state, {books}) {
+      state.books = books
     },
-    setAuthors (state, payload) {
-      state.authors = payload.authors
+    setAuthors (state, {authors}) {
+      state.authors = authors
     }
   }
 })
