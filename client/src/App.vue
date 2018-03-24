@@ -1,6 +1,12 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
+
+    <router-link to="/">Home</router-link>
+    <router-link to="/books">Manage Books</router-link>
+    <router-link to="/authors">Manage Authors</router-link>
+    <br/>
+
     <router-view/>
   </div>
 </template>

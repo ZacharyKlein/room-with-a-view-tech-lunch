@@ -38,7 +38,7 @@ export default {
 <style scoped>
 
   .cell {
-    width: 250px;
+    width: 500px;
     float: left
   }
 
